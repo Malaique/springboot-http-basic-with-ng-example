@@ -105,13 +105,13 @@ Nah sekarang coba kita akess link tersebut menggunakan :
 - Rested
 - Rest Client (IntelliJ IDEA)
 
-![Rest Client with auth](../docs/imgs/rest-auth.png)
+![Rest Client with auth](/docs/imgs/rest-auth.png)
 
 Masukan username `user` dan passwordnya `ec25f83f-b26c-4f94-9c5f-4b0bd6712f4e`
 
 nah sekarang coba perhatikan di tab Request Header ada properti `Authorization` dengan nilai `Basic generated-base64` jadi untuk setiap request dari client jika menggunakan http-basic kita harus kirim header dengan properti `Authorization` dengan valunya format `Basic <generate-base63>` setelah itu kirim menggunakan method `GET` karena kita deklarasi dengan `@GetMapping` (di sisi spring web mvc) dengan urlnya `localhost:8080/buku/10` maka hasilnya seperti berikut
 
-![Rest client result](../docs/imgs/rest-client.png)
+![Rest client result](/docs/imgs/rest-client.png)
 
 atau seperti berikut:
 
