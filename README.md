@@ -168,3 +168,11 @@ setelah itu coba jalankan ulang aplikasi BukuAPI, kemudian sama seperti tadi hap
 ```
 
 Nah klo salah username maka biasanya akan tampil message `Bad Cridentals`
+
+## Membuat aplikasi client dengan Angular4
+
+Membuat project dengan angular-cli menggunakan perintah
+
+```sh
+ng new buku-client && cd buku-client
+```
