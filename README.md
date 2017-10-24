@@ -123,3 +123,48 @@ atau seperti berikut:
   "tahunTerbit": 2017
 }
 ```
+
+## Implement HTTP Basic di Spring Web MVC
+
+Untuk mengimplementasikan HTTP Basic Authentication di spring web security, buat satu kelas lagi dengan nama `WebSecurity` dalam package `configs` seperti berikut:
+
+```java
+package com.maryanto.dimas.rental.buku.configs;
+
+// import classes should be here
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurity extends WebSecurityConfigurerAdapter {
+
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable() // untuk desabled csrf protection
+                .authorizeRequests().anyRequest().authenticated() // semua url harus login
+                .and()
+                .httpBasic(); // aktifkan http basic authentication
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("user").password("password").roles("USER").build()); // membuat user dengan username `user` dan passwordnya `password`
+        return manager;
+    }
+
+}
+```
+
+setelah itu coba jalankan ulang aplikasi BukuAPI, kemudian sama seperti tadi hapus dulu properti `Authorization` kemudian buat lagi dengan username `user` dan passwordnya `password` setelah itu coba run Rest Client dengan url `localhost:8080/api/buku/10` hasilnya 
+
+```json
+{
+  "id": "10",
+  "nama": "Belajar Pemograman Java",
+  "pengarang": "Dimas Maryanto",
+  "tahunTerbit": 2017
+}
+```
+
+Nah klo salah username maka biasanya akan tampil message `Bad Cridentals`
