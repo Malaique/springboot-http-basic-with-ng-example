@@ -1,4 +1,4 @@
-package com.maryanto.dimas.buku;
+package com.maryanto.dimas.rental.buku;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

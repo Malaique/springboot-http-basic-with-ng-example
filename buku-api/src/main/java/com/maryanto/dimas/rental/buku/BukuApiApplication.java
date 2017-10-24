@@ -1,4 +1,4 @@
-package com.maryanto.dimas.buku;
+package com.maryanto.dimas.rental.buku;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
