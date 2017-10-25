@@ -6,21 +6,55 @@
 </div>
 
 <div class="container">
-  <form #formBuku="ngForm" (ngSubmit)="submitData()">
+  <form #formBuku="ngForm" (ngSubmit)="submitData(formBuku)">
     <div class="form-group">
       <label for="nama" class="control-label">Judul Buku</label>
-      <input type="text" name="nama" id="nama" [(ngModel)]="buku.nama" class="form-control">
+      <input type="text" name="nama" id="nama" [(ngModel)]="buku.nama" class="form-control" required minlength="5"
+             #name="ngModel">
+      <div class="alert alert-danger"
+           *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.minlength">
+          Name must be at least 5 characters long.
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="pengarang" class="control-label">Nama Pengarang</label>
-      <input type="text" name="pengarang" id="pengarang" [(ngModel)]="buku.pengarang" class="form-control">
+      <input type="text" name="pengarang" id="pengarang" [(ngModel)]="buku.pengarang" class="form-control" required
+             minlength="3" #pengarang="ngModel">
+      <div class="alert alert-danger"
+           *ngIf="pengarang.invalid && (pengarang.dirty || pengarang.touched)">
+        <div *ngIf="pengarang.errors.required">
+          Nama Pengarang is required.
+        </div>
+        <div *ngIf="pengarang.errors.minlength">
+          Nama Pengarang must be at least 3 characters long.
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="tahun" class="control-label">Tahun Terbit</label>
-      <input type="number" name="tahun" id="tahun" [(ngModel)]="buku.tahunTerbit" class="form-control">
+      <input type="number" name="tahun" id="tahun"
+             [(ngModel)]="buku.tahunTerbit" class="form-control"
+             required min="2000" max="2100" #tahunTerbit="ngModel">
+      <div class="alert alert-danger"
+           *ngIf="tahunTerbit.invalid && (tahunTerbit.dirty || tahunTerbit.touched)">
+        <div *ngIf="tahunTerbit.errors.required">
+          Tahun is required.
+        </div>
+        <div *ngIf="tahunTerbit.errors.min">
+          Tahun harus > 2000
+        </div>
+        <div *ngIf="tahunTerbit.errors.max">
+          Tahun harus < 2100
+        </div>
+      </div>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">Kirim</button>
+      <button type="submit" [disabled]="!formBuku.valid" class="btn btn-primary">Kirim</button>
       <button type="reset" class="btn btn-default">Kembali</button>
     </div>
   </form>

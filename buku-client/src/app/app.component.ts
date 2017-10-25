@@ -3,6 +3,7 @@ import {Headers, Http} from '@angular/http';
 import {Buku} from './buku';
 import {Subscription} from 'rxjs/Subscription';
 import {BukuService} from './buku.service';
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -55,11 +56,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 
-  submitData() {
+  submitData(formEvent: NgForm) {
     this.bukuService.saveBuku(this.buku).subscribe(
       data => {
         this.gotoPage(0, this.showList);
         this.buku = new Buku;
+        formEvent.reset();
       },
       error => {
         console.log(error);
