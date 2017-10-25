@@ -14,7 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   showList = 5;
   buku: Buku = new Buku;
   subscript: Subscription;
-  title = 'app';
+  title = 'Rental Buku';
   listPages: { index: number, text: string }[];
   bukuContent: {
     content: Buku[],
