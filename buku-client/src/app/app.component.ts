@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Headers, Http, RequestOptions} from '@angular/http';
+import {Headers, Http} from '@angular/http';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,24 @@ export class AppComponent {
   }
 
   title = 'app';
+
+  submitData() {
+    const cridentals = btoa('user:password');
+    const headers = new Headers();
+
+    headers.set('Authorization', `Basic ${cridentals}`);
+    this.http.post('http://localhost:8080/api/buku/submit', {
+      id: '213',
+      nama: 'JavaEE introduction',
+      pengarang: 'Dimas Maryanto',
+      tahunTerbit: 2017
+    }, {
+      headers: headers
+    }).subscribe(
+      data => console.log(data),
+      error => console.log(error)
+    );
+  }
 
   ambilData() {
     const cridentals = btoa('user:password');
