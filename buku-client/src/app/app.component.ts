@@ -11,6 +11,7 @@ import {BukuService} from './buku.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  buku: Buku = new Buku;
   subscript: Subscription;
   title = 'app';
   listPages: { index: number, text: string }[];
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
     totalPages: number,
     totalElements: number,
     first: boolean,
-    numberOfElement: number,
+    numberOfElements: number,
     size: number,
     number: number
   };
@@ -54,20 +55,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   submitData() {
-    const cridentals = btoa('user:password');
-    const headers = new Headers();
-
-    headers.set('Authorization', `Basic ${cridentals}`);
-    this.http.post('http://localhost:8080/api/buku/submit', {
-      id: '213',
-      nama: 'JavaEE introduction',
-      pengarang: 'Dimas Maryanto',
-      tahunTerbit: 2017
-    }, {
-      headers: headers
-    }).subscribe(
-      data => console.log(data),
-      error => console.log(error)
+    this.bukuService.saveBuku(this.buku).subscribe(
+      data => {
+        this.gotoPage();
+        this.buku = new Buku;
+      },
+      error => {
+        console.log(error);
+      }
     );
   }
 

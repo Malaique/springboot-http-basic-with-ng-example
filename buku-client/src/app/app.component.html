@@ -5,10 +5,27 @@
   </h1>
 </div>
 
-<button (click)="ambilData()">reload</button>
-<button (click)="getData()">getBuku</button>
-<button (click)="submitData()">Kirim</button>
+<form #formBuku="ngForm" (ngSubmit)="submitData()">
+  <div>
+    <label for="nama">Judul Buku</label>
+    <input type="text" name="nama" id="nama" [(ngModel)]="buku.nama">
+  </div>
+  <div>
+    <label for="pengarang">Nama Pengarang</label>
+    <input type="text" name="pengarang" id="pengarang" [(ngModel)]="buku.pengarang">
+  </div>
+  <div>
+    <label for="tahun">Tahun Terbit</label>
+    <input type="number" name="tahun" id="tahun" [(ngModel)]="buku.tahunTerbit">
+  </div>
+  <div>
+    <button type="submit">Kirim</button>
+    <button type="reset">Kembali</button>
+  </div>
+</form>
 
+<hr>
+<div>Jumlah data {{bukuContent?.numberOfElements}} / {{bukuContent?.totalElements}}</div>
 <table>
   <thead>
   <tr>

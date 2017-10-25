@@ -20,13 +20,12 @@ public class BukuController {
 
     @GetMapping("/{bukuId}")
     public Buku findById(@PathVariable("bukuId") String id) {
-        return new Buku(id, "Belajar Pemograman Java", "Dimas Maryanto", 2017);
+        return bukuRepository.findOne(id);
     }
 
     @PostMapping(value = "/submit", produces = "application/json", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Buku submitBuku(@RequestBody Buku buku) {
-        console.info("{}", buku.toString());
-        return buku;
+        return bukuRepository.save(buku);
     }
 
     @GetMapping(value = "/", produces = "application/json")

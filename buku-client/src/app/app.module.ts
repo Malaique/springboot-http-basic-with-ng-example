@@ -4,6 +4,7 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {HttpModule} from '@angular/http';
 import {BukuService} from './buku.service';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import {BukuService} from './buku.service';
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    FormsModule
   ],
   providers: [BukuService],
   bootstrap: [AppComponent]

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import {Buku} from './buku';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class BukuService {
     totalPages: number,
     totalElements: number,
     first: boolean,
-    numberOfElement: number,
+    numberOfElements: number,
     size: number,
     number: number
   };
@@ -24,6 +24,16 @@ export class BukuService {
         size: 5,
         page: page
       }
+    });
+  }
+
+  saveBuku(buku: Buku) {
+    const cridentals = btoa('user:password');
+    const headers = new Headers();
+
+    headers.set('Authorization', `Basic ${cridentals}`);
+    return this.http.post('http://localhost:8080/api/buku/submit', buku, {
+      headers: headers
     });
   }
 }
