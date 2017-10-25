@@ -26,19 +26,29 @@
 
 <hr>
 <div>Jumlah data {{bukuContent?.numberOfElements}} / {{bukuContent?.totalElements}}</div>
+<div>
+  <label for="show">Data yang ditampilkan</label>
+  <select name="show" id="show" [(ngModel)]="showList" (change)="gotoPage(0, showList)">
+    <option value="5">5 Baris</option>
+    <option value="10">10 Baris</option>
+    <option value="15">15 Baris</option>
+    <option value="20">20 Baris</option>
+    <option value="25">25 Baris</option>
+  </select>
+</div>
 <table>
   <thead>
   <tr>
-    <td>Kode</td>
+    <td>No.</td>
     <td>Nama Buku</td>
     <td>Pengarang</td>
     <td>Tahun Terbit</td>
-    <td></td>
+    <td>Aksi</td>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let buku of bukuContent?.content">
-    <td>{{buku.id}}</td>
+  <tr *ngFor="let buku of bukuContent?.content; let idx = index">
+    <td>{{idx+1}}</td>
     <td>{{buku.nama}}</td>
     <td>{{buku.pengarang}}</td>
     <td>{{buku.tahunTerbit}}</td>
@@ -49,18 +59,18 @@
 <div>
   <button
     [disabled]="bukuContent?.first"
-    (click)="gotoPage(0)">
+    (click)="gotoPage(0, showList)">
     Halaman Pertama
   </button>
   <button
     [disabled]="bukuContent?.number == page.index"
     *ngFor="let page of listPages"
-    (click)="gotoPage(page.index)">
+    (click)="gotoPage(page.index, showList)">
     {{page.text}}
   </button>
   <button
     [disabled]="bukuContent?.last"
-    (click)="gotoPage(bukuContent?.totalPages - 1)">
+    (click)="gotoPage(bukuContent?.totalPages - 1, showList)">
     Halaman Terakhir
   </button>
 </div>

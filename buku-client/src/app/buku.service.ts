@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Headers, Http} from '@angular/http';
 import {Buku} from './buku';
 
 @Injectable()
@@ -18,10 +18,10 @@ export class BukuService {
   constructor(private http: Http) {
   }
 
-  getBukuContent(page: number = 0) {
+  getBukuContent(page: number, size: number) {
     return this.http.get('http://localhost:8080/api/buku/list', {
       params: {
-        size: 5,
+        size: size,
         page: page
       }
     });

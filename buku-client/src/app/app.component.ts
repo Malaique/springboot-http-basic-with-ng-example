@@ -11,6 +11,7 @@ import {BukuService} from './buku.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+  showList = 5;
   buku: Buku = new Buku;
   subscript: Subscription;
   title = 'app';
@@ -31,8 +32,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscript.unsubscribe();
   }
 
-  gotoPage(page: number = 0) {
-    this.subscript = this.bukuService.getBukuContent(page).subscribe(
+  gotoPage(page: number = 0, size: number = 5) {
+    this.subscript = this.bukuService.getBukuContent(page, size).subscribe(
       data => {
         this.listPages = [];
         this.bukuContent = data.json();
@@ -47,7 +48,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.gotoPage();
+    this.gotoPage(0, this.showList);
   }
 
   constructor(private http: Http, private bukuService: BukuService) {
@@ -57,7 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
   submitData() {
     this.bukuService.saveBuku(this.buku).subscribe(
       data => {
-        this.gotoPage();
+        this.gotoPage(0, this.showList);
         this.buku = new Buku;
       },
       error => {
