@@ -37,7 +37,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 //        super.configure(http);
         http.csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/api/buku/list").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic().realmName(ng4EntriPoint).authenticationEntryPoint(ng4BasicEntryPoint);
     }

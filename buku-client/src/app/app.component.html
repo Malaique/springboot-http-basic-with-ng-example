@@ -9,3 +9,41 @@
 <button (click)="getData()">getBuku</button>
 <button (click)="submitData()">Kirim</button>
 
+<table>
+  <thead>
+  <tr>
+    <td>Kode</td>
+    <td>Nama Buku</td>
+    <td>Pengarang</td>
+    <td>Tahun Terbit</td>
+    <td></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let buku of bukuContent?.content">
+    <td>{{buku.id}}</td>
+    <td>{{buku.nama}}</td>
+    <td>{{buku.pengarang}}</td>
+    <td>{{buku.tahunTerbit}}</td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>
+<div>
+  <button
+    [disabled]="bukuContent?.first"
+    (click)="gotoPage(0)">
+    Halaman Pertama
+  </button>
+  <button
+    [disabled]="bukuContent?.number == page.index"
+    *ngFor="let page of listPages"
+    (click)="gotoPage(page.index)">
+    {{page.text}}
+  </button>
+  <button
+    [disabled]="bukuContent?.last"
+    (click)="gotoPage(bukuContent?.totalPages - 1)">
+    Halaman Terakhir
+  </button>
+</div>
