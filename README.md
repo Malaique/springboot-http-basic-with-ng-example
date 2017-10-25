@@ -176,3 +176,74 @@ Membuat project dengan angular-cli menggunakan perintah
 ```sh
 ng new buku-client && cd buku-client
 ```
+
+Setelah projectnya terbuat, kemudian aktifkan modul `HttpModule` di file `src/app/app.module.ts` seperti berikut:
+
+```ts
+// import here
+import {HttpModule} from '@angular/http'; // << import HttpModule dari package `@angular/http`
+
+@NgModule({
+  declarations: [
+    // declaration settings
+  ],
+  imports: [
+    BrowserModule,
+    HttpModule // << tambahkan ini untuk mengakthifkan module http
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule {
+}
+```
+
+Nah setelah itu kita buat akses ke server dengan module `Http` di file `app.component.ts` seperti berikut:
+
+```ts
+import {Component} from '@angular/core';
+import {Headers, Http} from '@angular/http'; // << import object `Http` dari package `@angular/http`
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+
+  constructor(private http: Http) { // << inject object module `Http` dari contruktor
+  }
+
+  title = 'app';
+
+  ambilData() {
+    this.http.get('http://localhost:8080/api/buku/10').subscribe(
+      data => console.log(data),
+      error => console.log(error)
+    );
+  }
+}
+```
+
+Setelah itu saya mau panggil methodnya dari file `app.component.html` menggunakan event binding yaitu `click` seperti berikut:
+
+```ts
+<div style="text-align:center">
+  <h1>
+    Welcome to {{title}}!
+  </h1>
+</div>
+
+<button (click)="ambilData()">reload</button>
+```
+
+Nah setelah itu cara menjalankan / meruning aplikasi angular menggunakan angular-cli yaitu `ng server` setelah itu buka [http://localhost:4200](http://localhost:4200) maka tampilannya seperti berikut:
+
+![First view angular](/docs/imgs/client-1.png)
+
+Ketika di klick `Kirim` klo di liat gak ada response apa2 ya...
+Nah coba liat di console dengan menggunakan shortcut `Ctrl + Shift + I` hasilnya seperti berikut:
+
+![Error Submit get](/docs/imgs/client-2.png)
+
+Nah katanya error statusnya `401` dengan message `No Access Controll Allow Origin` atau `cors`. ini artinya karena aplikasi angular(`localhost:4200`) ini berbeda host dengan aplikasi server kita(`localhost:8080`)
