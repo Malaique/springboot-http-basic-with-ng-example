@@ -17,8 +17,14 @@ public class BukuController {
     }
 
     @PostMapping(value = "/submit", produces = "application/json", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Buku getBuku(@RequestBody Buku buku) {
+    public Buku submitBuku(@RequestBody Buku buku) {
         console.info("{}", buku.toString());
         return buku;
+    }
+
+    @GetMapping(value = "/", produces = "application/json")
+    public Buku getBuku(@ModelAttribute Buku buku) {
+        console.info("nilai: {}", buku.toString());
+        return new Buku();
     }
 }
